@@ -21,8 +21,32 @@ public class MaxTest {
      * Test 2 & 1
      */
     @Test
-    public void whenFirstBiggerSecond1ThenFirst() {
+    public void whenFirstBiggerSecondThenFirst() {
         Max max = new Max();
         assertThat(max.max(2, 1), is(2));
+    }
+    /**
+     * Test 1 & 2 & 3
+     */
+    @Test
+    public void whenThirdIsBiggerThenThird() {
+        Max max = new Max();
+        assertThat(max.max(1, 2, 3), is(3));
+    }
+    /**
+     * Test 1 & 3 & 2
+     */
+    @Test
+    public void whenSecondIsBiggerThenSecond() {
+        Max max = new Max();
+        assertThat(max.max(1, 3, 2), is(3));
+    }
+    /**
+     * Test 3 & 2 & 1
+     */
+    @Test
+    public void whenFirstIsBiggerThenFirst() {
+        Max max = new Max();
+        assertThat(max.max(3, 2, 1), is(3));
     }
 }
