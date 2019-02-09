@@ -12,16 +12,13 @@ public class Check {
      * @return True if mono-filled
      */
     public boolean mono(boolean[] data) {
-        boolean result = false;
+        boolean result = true;
         for (int i = 1; i < data.length; i++) {
             if (data[i] != data[i - 1]) {
                 result = false;
                 break;
-            } else {
-                result = true;
             }
         }
         return result;
     }
-
 }
