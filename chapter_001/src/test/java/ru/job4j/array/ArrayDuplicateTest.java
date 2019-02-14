@@ -15,10 +15,10 @@ public class ArrayDuplicateTest {
      */
     @Test
     public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
-        ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
+        ArrayDuplicate duplicate = new ArrayDuplicate();
         String[] input = {"Мир", "Труд", "Труд", "Май", "Мир"};
         String[] expect = {"Мир", "Труд", "Май"};
-        String[] result = arrayDuplicate.remove(input);
+        String[] result = duplicate.remove(input);
         assertThat(result, arrayContainingInAnyOrder(expect));
     }
     /**
@@ -26,10 +26,10 @@ public class ArrayDuplicateTest {
      */
     @Test
     public void whenDuplicatingOneWordThenArrayOfOneWord() {
-        ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
+        ArrayDuplicate duplicate = new ArrayDuplicate();
         String[] input = {"Мир", "Мир", "Мир"};
         String[] expect = {"Мир"};
-        String[] result = arrayDuplicate.remove(input);
+        String[] result = duplicate.remove(input);
         assertThat(result, arrayContainingInAnyOrder(expect));
     }
     /**
@@ -37,10 +37,10 @@ public class ArrayDuplicateTest {
      */
     @Test
     public void whenNoDuplicatesThenArrayItself() {
-        ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
+        ArrayDuplicate duplicate = new ArrayDuplicate();
         String[] input = {"Мир", "Труд", "Май"};
         String[] expect = {"Мир", "Труд", "Май"};
-        String[] result = arrayDuplicate.remove(input);
+        String[] result = duplicate.remove(input);
         assertThat(result, arrayContainingInAnyOrder(expect));
     }
 }

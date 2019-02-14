@@ -15,10 +15,10 @@ public class BubbleSortTest {
      */
     @Test
     public void whenSortArrayWithTenElementsThenSortedArray() {
-        BubbleSort bubbleSort = new BubbleSort();
-        int[] array = new int[] {1, 5, 4, 2, 3, 1, 7, 8, 0, 5};
+        BubbleSort sorter = new BubbleSort();
+        int[] input = new int[] {1, 5, 4, 2, 3, 1, 7, 8, 0, 5};
         int[] expect = new int[] {0, 1, 1, 2, 3, 4, 5, 5, 7, 8};
-        int[] result = bubbleSort.sort(array);
+        int[] result = sorter.sort(input);
         assertThat(result, is(expect));
     }
     /**
@@ -26,10 +26,10 @@ public class BubbleSortTest {
      */
     @Test
     public void whenArrayWithTwoElementsThenSortedArray() {
-        BubbleSort bubbleSort = new BubbleSort();
-        int[] array = new int[] {2, 1};
+        BubbleSort sorter = new BubbleSort();
+        int[] input = new int[] {2, 1};
         int[] expect = new int[] {1, 2};
-        int[] result = bubbleSort.sort(array);
+        int[] result = sorter.sort(input);
         assertThat(result, is(expect));
     }
 

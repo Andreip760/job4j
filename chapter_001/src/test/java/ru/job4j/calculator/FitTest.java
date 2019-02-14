@@ -14,8 +14,8 @@ public class FitTest {
      */
     @Test
     public void whenManHeight180ThenClose92() {
-        Fit fit = new Fit();
-        double result = fit.manWeight(180D);
+        Fit fitness = new Fit();
+        double result = fitness.manWeight(180D);
         assertThat(result, closeTo(92.0D, 0.1D));
     }
     /**
@@ -23,8 +23,8 @@ public class FitTest {
      */
     @Test
     public void whenWomanHeight170ThenClose69() {
-        Fit fit = new Fit();
-        double result = fit.womanWeight(170D);
+        Fit fitness = new Fit();
+        double result = fitness.womanWeight(170D);
         assertThat(result, closeTo(69.0D, 0.1D));
     }
 }

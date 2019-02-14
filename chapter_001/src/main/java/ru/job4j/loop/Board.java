@@ -14,19 +14,18 @@ public class Board {
      * @return Checkmate board
      */
     public String paint(int width, int height) {
-        StringBuilder stringBuilder = new StringBuilder();
-        String ln = System.getProperty("line.separator");
-
+        StringBuilder result = new StringBuilder();
+        String separator = System.getProperty("line.separator");
         for (int i = 0; i < height; i++) {
             for (int k = 0; k < width; k++) {
                 if ((i + k) % 2 == 0) {
-                    stringBuilder.append('x');
+                    result.append('x');
                 } else {
-                    stringBuilder.append(' ');
+                    result.append(' ');
                 }
             }
-            stringBuilder.append(ln);
+            result.append(separator);
         }
-        return stringBuilder.toString();
+        return result.toString();
     }
 }

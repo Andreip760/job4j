@@ -31,16 +31,15 @@ public class Triangle {
      * @return Area of the triangle. Or -1 if the triangle does not exist.
      */
     public double area() {
-        double rsl = -1D;
+        double result = -1D;
         double ab = this.a.distanceTo(b);
         double ac = this.a.distanceTo(c);
         double bc = this.b.distanceTo(c);
-        double p = this.period(ab, ac, bc);
-
+        double perimeter = this.period(ab, ac, bc);
         if (exist(ab, ac, bc)) {
-            rsl = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
+            result = Math.sqrt(perimeter * (perimeter - ab) * (perimeter - ac) * (perimeter - bc));
         }
-        return rsl;
+        return result;
     }
     /**
      * Check for existence of the triangle.

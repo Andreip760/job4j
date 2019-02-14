@@ -7,7 +7,6 @@ package ru.job4j.calculator;
  * @since 07.02.2019
  */
 public class Fit {
-
     /**
      * Ideal man weight
      * @param height Height
