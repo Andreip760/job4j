@@ -1,4 +1,4 @@
-package inheritance;
+package ru.job4j.inheritance;
 /**
  * Parent class for all professions
  * @author Andrei Pashchenko.

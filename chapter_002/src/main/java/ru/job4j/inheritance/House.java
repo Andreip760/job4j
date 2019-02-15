@@ -1,4 +1,4 @@
-package inheritance;
+package ru.job4j.inheritance;
 /**
  * Class House
  * @author Andrei Pashchenko.

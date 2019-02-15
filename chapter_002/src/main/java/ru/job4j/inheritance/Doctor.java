@@ -1,4 +1,4 @@
-package inheritance;
+package ru.job4j.inheritance;
 /**
  * Class doctor
  * @author Andrei Pashchenko.

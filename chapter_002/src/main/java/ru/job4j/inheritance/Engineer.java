@@ -1,4 +1,4 @@
-package inheritance;
+package ru.job4j.inheritance;
 /**
  * Class Engineer
  * @author Andrei Pashchenko.

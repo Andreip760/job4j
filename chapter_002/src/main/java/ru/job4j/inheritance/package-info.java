@@ -5,4 +5,4 @@
  *@version 1
  *@since 14.02.2019
  */
-package inheritance;
+package ru.job4j.inheritance;
