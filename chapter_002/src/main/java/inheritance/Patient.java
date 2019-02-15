@@ -6,5 +6,5 @@ package inheritance;
  * @since 15.02.2019
  */
 public class Patient {
-    String name;
+    private String name;
 }

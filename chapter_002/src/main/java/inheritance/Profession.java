@@ -6,8 +6,8 @@ package inheritance;
  * @since 15.02.2019
  */
 public class Profession {
-    String name;
-    String profession;
+    private String name;
+    private String profession;
     public String getName() {
         return this.name;
     }
