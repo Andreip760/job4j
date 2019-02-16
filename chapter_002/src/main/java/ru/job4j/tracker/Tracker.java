@@ -31,6 +31,7 @@ public class Tracker {
 		boolean result = false;
 		for (int index = 0; index < this.position; index++) {
 			if (this.items[index].getId().equals(id)) {
+				item.setId(this.items[index].getId());
 				this.items[index] = item;
 				result = true;
 				break;
@@ -49,7 +50,6 @@ public class Tracker {
 			if (this.items[index].getId().equals(id)) {
 				this.position--;
 				System.arraycopy(this.items, index + 1, this.items, index, this.position - index);
-				this.items[this.position] = null;
 				result = true;
 				break;
 			}
