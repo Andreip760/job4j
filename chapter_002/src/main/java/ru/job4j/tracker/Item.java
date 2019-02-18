@@ -11,15 +11,11 @@ public class Item {
     private String desc;
     private long created;
     private String[] comments;
-    /**
-     * Item's constructor
-     * @param name Name.
-     * @param desc Description.
-     */
-    public Item(String name, String desc) {
+
+    public Item(String name, String desc, long created) {
         this.name = name;
         this.desc = desc;
-        this.created = System.currentTimeMillis();
+        this.created = created;
     }
     /**
      * @return item Id field.
@@ -39,9 +35,5 @@ public class Item {
      */
     public String getName() {
         return name;
-    }
-
-    public String getDesc() {
-        return this.desc;
     }
 }
