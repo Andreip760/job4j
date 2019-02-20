@@ -68,6 +68,28 @@ public class StartUITest {
         assertThat(this.tracker.findAll()[0], is(second));
     }
     /**
+     * Showing main menu.
+     */
+    @Test
+    public void whenStartUIThenPrintMenu() {
+        Input input = new StubInput(new String[] {"6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(
+                this.out.toString(),
+                is(
+                        new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                        .add("Меню.")
+                        .add("0. Add new Item")
+                        .add("1. Show all items")
+                        .add("2. Edit item")
+                        .add("3. Delete item")
+                        .add("4. Find item by Id")
+                        .add("5. Find items by name")
+                        .add("6. Exit Program").toString()
+                )
+        );
+    }
+    /**
      * Showing all items.
      */
     @Test
