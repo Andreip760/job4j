@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.StringJoiner;
+
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 /**
@@ -9,37 +16,129 @@ import static org.hamcrest.core.Is.is;
  * @since 18.02.2019
  */
 public class StartUITest {
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private Tracker tracker;
+    private Item item;
+
+    /**
+     * Redirecting output
+     * Creating new tracker
+     * Adding the first item to the tracker
+     */
+    @Before
+    public void initialize() {
+        System.setOut(new PrintStream(out));
+        this.tracker = new Tracker();
+        this.item = this.tracker.add(new Item("name1", "desc1"));
+    }
+    /**
+     * Redirecting output back
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
     /**
      * Adding new item
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        new StartUI(input, this.tracker).init();
+        assertThat(this.tracker.findAll()[1].getName(), is("test name"));
     }
     /**
      * Updating existing item
      */
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
+        Input input = new StubInput(new String[]{"2", this.item.getId(), "test replace", "заменили заявку", "6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(this.tracker.findById(this.item.getId()).getName(), is("test replace"));
     }
     /**
      * Deleting item
      */
     @Test
     public void whenDeleteThenTrackerHasItemsWithoutDeleted() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first", "delete"));
-        Item second = tracker.add(new Item("second", "desc"));
-        Input input = new StubInput(new String[] {"3", first.getId(), "6"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0], is(second));
+        Item second = this.tracker.add(new Item("second", "desc"));
+        Input input = new StubInput(new String[] {"3", this.item.getId(), "6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(this.tracker.findAll()[0], is(second));
+    }
+    /**
+     * Showing all items.
+     */
+    @Test
+    public void whenShowAllThenPrintAllItems() {
+        Input input = new StubInput(new String[] {"1", "6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(
+                this.cutConsole(this.out.toString()),
+                is(
+                        new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                                .add("------------ Все заявки --------------")
+                                .add(this.getItemString(this.item))
+                                .add("--------------------------------------")
+                                .toString()
+                )
+        );
+    }
+    /**
+     * Finding item by id.
+     */
+    @Test
+    public void whenFindByIdThenPrintFoundItem() {
+        Input input = new StubInput(new String[] {"4", this.item.getId(), "6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(
+                this.cutConsole(this.out.toString()),
+                is(
+                        new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                                .add("------------ Поиск заявки по Id ------------")
+                                .add(this.getItemString(this.item))
+                                .add("-------------------------------------------")
+                                .toString()
+                )
+        );
+    }
+    /**
+     * Finding item by name
+     */
+    @Test
+    public void whenFindByNameThenPrintFoundItem() {
+        Input input = new StubInput(new String[] {"5", this.item.getName(), "6"});
+        new StartUI(input, this.tracker).init();
+        assertThat(
+                this.cutConsole(this.out.toString()),
+                is(
+                        new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                                .add("------------ Поиск заявки по имени --------------")
+                                .add(this.getItemString(this.item))
+                                .add("-------------------------------------------------")
+                                .toString()
+                )
+        );
+    }
+    /**
+     * String representation of item.
+     * @param item Item.
+     * @return String (id name desc).
+     */
+    private String getItemString(Item item) {
+        return new StringJoiner(" ")
+                .add(item.getId())
+                .add(item.getName())
+                .add(item.getDesc())
+                .toString();
+    }
+    /**
+     * Cutting results from the console string.
+     * @param console String from console.
+     * @return results.
+     */
+    private String cutConsole(String console) {
+        return console.substring(console.indexOf("-"), console.lastIndexOf("-") + 3);
     }
 }
