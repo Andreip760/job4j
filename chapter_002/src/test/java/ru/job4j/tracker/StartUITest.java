@@ -20,7 +20,6 @@ public class StartUITest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private Tracker tracker;
     private Item item;
-
     /**
      * Redirecting output
      * Creating new tracker
@@ -79,7 +78,7 @@ public class StartUITest {
                 is(
                         new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                                 .add("Меню.")
-                                .add("0. Add new Item")
+                                .add("0. Add new item")
                                 .add("1. Show all items")
                                 .add("2. Edit item")
                                 .add("3. Delete item")
