@@ -5,20 +5,9 @@ package ru.job4j.tracker;
  * @version 1
  * @since 22.02.2019
  */
-public class UpdateItem implements UserAction {
-    private final int key;
-    private final String info;
-
+public class UpdateItem extends BaseAction {
     public UpdateItem(int key, String info) {
-        this.key = key;
-        this.info = info;
-    }
-    /**
-     * @return key assigned to the action
-     */
-    @Override
-    public int key() {
-        return this.key;
+        super(key, info);
     }
     /**
      * Replacing an existing item with another one
@@ -37,12 +26,5 @@ public class UpdateItem implements UserAction {
             System.out.printf("Заявка Id: %s не найдена%s", id, System.lineSeparator());
         }
         System.out.println("-------------------------------------------------");
-    }
-    /**
-     * @return Action information
-     */
-    @Override
-    public String info() {
-        return this.info;
     }
 }
