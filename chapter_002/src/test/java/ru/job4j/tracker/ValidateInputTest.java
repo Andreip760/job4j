@@ -32,6 +32,17 @@ public class ValidateInputTest {
         System.setOut(new PrintStream(this.stdout));
     }
     /**
+     * Entered value is valid
+     */
+    @Test
+    public void whenValidInput() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"1"})
+        );
+        input.ask("Enter", new int[]{1});
+        assertThat(this.out.toString(), is(""));
+    }
+    /**
      * Entered value is not a number
      */
     @Test
@@ -44,6 +55,22 @@ public class ValidateInputTest {
                 this.out.toString(),
                 is(
                         String.format("Enter a number%s", System.lineSeparator())
+                )
+        );
+    }
+    /**
+     * Entered value is out of range
+     */
+    @Test
+    public void whenNotInRangeInput() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"2", "1"})
+        );
+        input.ask("Enter", new int[]{1});
+        assertThat(
+                this.out.toString(),
+                is(
+                        String.format("Enter a number from the menu range%s", System.lineSeparator())
                 )
         );
     }
