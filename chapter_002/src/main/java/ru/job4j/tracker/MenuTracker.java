@@ -45,4 +45,11 @@ public class MenuTracker {
             }
         }
     }
+    /**
+     * Getting actions' length.
+     * @return Length.
+     */
+    public int getActionsLength() {
+        return actions.size();
+    }
 }

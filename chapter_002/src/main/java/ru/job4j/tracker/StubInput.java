@@ -24,4 +24,9 @@ public class StubInput implements Input {
     public String ask(String question) {
         return value[position++];
     }
+
+    @Override
+    public int ask(String question, int[] range) {
+        return Integer.valueOf(this.ask(question));
+    }
 }
