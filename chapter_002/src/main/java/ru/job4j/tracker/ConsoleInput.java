@@ -38,11 +38,9 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return answer;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Answer is out of menu range");
         }
-
+        return answer;
     }
 }
