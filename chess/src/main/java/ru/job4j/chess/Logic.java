@@ -3,8 +3,6 @@ package ru.job4j.chess;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
-import java.util.Optional;
-
 /**
  * //TODO add comments.
  *
@@ -25,7 +23,8 @@ public class Logic {
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest) && this.movePossible(steps)) {
+            GameLogic gameLogic = new GameLogic(steps, this.figures, index);
+            if (steps.length > 0 && steps[steps.length - 1].equals(dest) && gameLogic.movePossible()) {
                 rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
             }
@@ -49,23 +48,5 @@ public class Logic {
             }
         }
         return rst;
-    }
-
-    /**
-     * Checking that cells on the route are not occupied
-     * @param route Cells on the route
-     * @return The possibility of this movement.
-     */
-    private boolean movePossible(Cell[] route) {
-        boolean result = true;
-        for (Figure figure : figures) {
-            for (Cell step : route) {
-                if (figure != null && figure.position().equals(step)) {
-                    result = false;
-                    break;
-                }
-            }
-        }
-        return result;
     }
 }

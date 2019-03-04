@@ -2,6 +2,7 @@ package ru.job4j.chess.firuges.black;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.routers.RouterFactory;
 
 /**
  *
@@ -23,11 +24,7 @@ public class PawnBlack implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        Cell[] steps = new Cell[0];
-        if (source.y == dest.y + 1 && source.x == dest.x) {
-            steps = new Cell[] {dest};
-        }
-        return steps;
+        return RouterFactory.getInstance().getRouter(this.getClass().getSimpleName()).getRoute(source, dest);
     }
 
     @Override
