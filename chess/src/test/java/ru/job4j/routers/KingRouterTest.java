@@ -14,7 +14,7 @@ import ru.job4j.chess.firuges.routers.RouterFactory;
  * @since 04.03.2019
  */
 public class KingRouterTest {
-    private final Router router = RouterFactory.getInstance().getRouter(KingBlack.class.getSimpleName());
+    private final Router router = RouterFactory.getInstance().getRouter(new KingBlack(Cell.A1));
     private final Cell source = Cell.D5;
     /**
      * Trying to move up

@@ -14,7 +14,7 @@ import ru.job4j.chess.firuges.routers.RouterFactory;
  * @since 04.03.2019
  */
 public class PawnRouterTest {
-    private final Router router = RouterFactory.getInstance().getRouter(PawnBlack.class.getSimpleName());
+    private final Router router = RouterFactory.getInstance().getRouter(new PawnBlack(Cell.A1));
     private final Cell source = Cell.D5;
     /**
      * Trying to move up

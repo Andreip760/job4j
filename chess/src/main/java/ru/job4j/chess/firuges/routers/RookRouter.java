@@ -25,8 +25,8 @@ public class RookRouter implements Router {
      */
     @Override
     public Cell[] getRoute(Cell source, Cell destination) {
-        int deltaX = Router.getDeltaX(source, destination);
-        int deltaY = Router.getDeltaY(source, destination);
+        int deltaX = this.getDeltaX(source, destination);
+        int deltaY = this.getDeltaY(source, destination);
         Cell[] result = {};
         if (deltaX == 0 || deltaY == 0) {
             int resultIndex = 0;

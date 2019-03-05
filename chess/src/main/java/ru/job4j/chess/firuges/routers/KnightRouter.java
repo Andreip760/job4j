@@ -26,8 +26,8 @@ public class KnightRouter implements Router {
     @Override
     public Cell[] getRoute(Cell source, Cell destination) {
         Cell[] result = {};
-        int deltaX = Router.getDeltaX(source, destination);
-        int deltaY = Router.getDeltaY(source, destination);
+        int deltaX = this.getDeltaX(source, destination);
+        int deltaY = this.getDeltaY(source, destination);
         if ((Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)
                 || (Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1)
         ) {

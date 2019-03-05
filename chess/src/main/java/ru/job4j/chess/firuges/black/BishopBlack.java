@@ -30,7 +30,7 @@ public class BishopBlack implements Figure {
      */
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return RouterFactory.getInstance().getRouter(this.getClass().getSimpleName()).getRoute(source, dest);
+        return RouterFactory.getInstance().getRouter(this).getRoute(source, dest);
     }
 
     @Override

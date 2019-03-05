@@ -15,7 +15,7 @@ import ru.job4j.chess.firuges.routers.RouterFactory;
  * @since 04.03.2019
  */
 public class BishopRouterTest {
-    private final Router router = RouterFactory.getInstance().getRouter(BishopBlack.class.getSimpleName());
+    private final Router router = RouterFactory.getInstance().getRouter(new BishopBlack(Cell.A1));
     private final Cell source = Cell.D5;
     /**
      * Trying to move up-right

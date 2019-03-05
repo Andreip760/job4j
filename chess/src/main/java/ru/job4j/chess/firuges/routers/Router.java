@@ -12,7 +12,7 @@ public interface Router {
      * @param destination Destination cell.
      * @return Delta X
      */
-    static int getDeltaX(Cell source, Cell destination) {
+    default int getDeltaX(Cell source, Cell destination) {
         return destination.x - source.x;
     }
     /**
@@ -21,7 +21,7 @@ public interface Router {
      * @param destination Destination cell.
      * @return Delta Y
      */
-    static int getDeltaY(Cell source, Cell destination) {
+    default int getDeltaY(Cell source, Cell destination) {
         return destination.y - source.y;
     }
 }

@@ -1,4 +1,9 @@
 package ru.job4j.chess.firuges.routers;
+
+import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.black.*;
+import ru.job4j.chess.firuges.white.*;
+
 /**
  * Router factory (eager load singleton)
  * produces figure routers
@@ -14,27 +19,26 @@ public class RouterFactory {
     public static RouterFactory getInstance() {
         return INSTANCE;
     }
-
     /**
      * Getting instance of a specific router.
-     * @param figureClass Figure class simple name.
+     * @param figure Figure that asks for a router.
      * @return router.
      */
-    public Router getRouter(String figureClass) {
-        Router router;
-        switch (cutFigureClass(figureClass)) {
-            case "Bishop" : router = BishopRouter.getInstance(); break;
-            case "Pawn" : router = PawnRouter.getInstance(); break;
-            case "Knight" : router = KnightRouter.getInstance(); break;
-            case "Rook" : router = RookRouter.getInstance(); break;
-            case "Qeen" : router = QueenRouter.getInstance(); break;
-            case "King" : router = KingRouter.getInstance(); break;
-            default: router = null;
+    public Router getRouter(Figure figure) {
+        Router router = null;
+        if (figure instanceof BishopBlack || figure instanceof BishopWhite) {
+            router = BishopRouter.getInstance();
+        } else if (figure instanceof PawnBlack || figure instanceof PawnWhite) {
+            router = PawnRouter.getInstance();
+        } else if (figure instanceof KnightBlack || figure instanceof KnightWhite) {
+            router = KnightRouter.getInstance();
+        } else if (figure instanceof RookBlack || figure instanceof RookWhite) {
+            router = RookRouter.getInstance();
+        } else if (figure instanceof QeenBlack || figure instanceof QeenWhite) {
+            router = QueenRouter.getInstance();
+        } else if (figure instanceof KingBlack || figure instanceof KingWhite) {
+            router = KingRouter.getInstance();
         }
         return router;
-    }
-    private String cutFigureClass(String input) {
-        String res = input.contains("Black") ? input.substring(0, input.indexOf("Black")) : input.substring(0, input.indexOf("White"));
-        return res;
     }
 }

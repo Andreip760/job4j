@@ -15,7 +15,7 @@ import ru.job4j.chess.firuges.routers.RouterFactory;
  * @since 04.03.2019
  */
 public class KnightRouterTest {
-    private final Router router = RouterFactory.getInstance().getRouter(KnightBlack.class.getSimpleName());
+    private final Router router = RouterFactory.getInstance().getRouter(new KnightBlack(Cell.A1));
     private final Cell source = Cell.D5;
     /**
      * Trying to move up-right (scheme X 1 : Y 2)

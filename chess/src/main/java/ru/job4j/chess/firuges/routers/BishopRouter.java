@@ -26,8 +26,8 @@ public class BishopRouter implements Router {
     @Override
     public Cell[] getRoute(Cell source, Cell destination) {
         Cell[] result = {};
-        int deltaX = Router.getDeltaX(source, destination);
-        int deltaY = Router.getDeltaY(source, destination);
+        int deltaX = this.getDeltaX(source, destination);
+        int deltaY = this.getDeltaY(source, destination);
         if (Math.abs(deltaX) == Math.abs(deltaY)) {
             result = new Cell[Math.abs(deltaX)];
             for (int i = 0; i < result.length; i++) {
