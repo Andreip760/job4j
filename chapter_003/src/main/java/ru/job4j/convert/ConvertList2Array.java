@@ -1,8 +1,10 @@
 package ru.job4j.convert;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
- * Class for conversion a list to a two-dimensional array
+ * Class for conversion a list to a two-dimensional array.
+ * And List of arrays into a list.
  * @author Andrei Pashchenko.
  * @version 1
  * @since 07.03.2019
@@ -28,5 +30,19 @@ public class ConvertList2Array {
             array[row][col++] = val;
         }
         return array;
+    }
+    /**
+     * Converting the list of arrays to the list.
+     * @param list Source list of arrays.
+     * @return List.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        for (int[] arr : list) {
+            for (int val : arr) {
+                result.add(val);
+            }
+        }
+        return result;
     }
 }
