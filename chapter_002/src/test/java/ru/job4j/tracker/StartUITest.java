@@ -45,7 +45,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, this.tracker).init();
-        assertThat(this.tracker.findAll()[1].getName(), is("test name"));
+        assertThat(this.tracker.findAll().get(1).getName(), is("test name"));
     }
     /**
      * Updating existing item
@@ -64,7 +64,7 @@ public class StartUITest {
         Item second = this.tracker.add(new Item("second", "desc"));
         Input input = new StubInput(new String[] {"3", this.item.getId(), "6"});
         new StartUI(input, this.tracker).init();
-        assertThat(this.tracker.findAll()[0], is(second));
+        assertThat(this.tracker.findAll().get(0), is(second));
     }
     /**
      * Showing main menu.
