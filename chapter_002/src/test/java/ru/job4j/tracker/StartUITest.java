@@ -160,6 +160,6 @@ public class StartUITest {
      * @return results.
      */
     private String cutConsole(String console) {
-        return console.substring(console.indexOf("-"), console.lastIndexOf("-") + 3);
+        return console.substring(console.indexOf("-"), console.lastIndexOf("-") + 1) + System.lineSeparator();
     }
 }
