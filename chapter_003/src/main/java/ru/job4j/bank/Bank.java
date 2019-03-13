@@ -30,7 +30,7 @@ public class Bank {
      */
     public void addAccountToUser(String passport, Account account) {
         User user = findUser(passport);
-        if (user != null) {
+        if (user != null && this.userAccounts.get(user).indexOf(account) < 0) {
             this.userAccounts.get(user).add(account);
         }
     }

@@ -37,6 +37,15 @@ public class BankTest {
         assertThat(result, is(Arrays.asList(firstAccount, secondAccount)));
     }
     /**
+     * Trying to add an account with the same requisites as the first.
+     */
+    @Test
+    public void whenAddAccountsWithSameReqsThenSeeStartUserAccounts() {
+        this.bank.addAccountToUser("12345", new Account(1D, "Account1"));
+        List<Account> result = this.bank.getUserAccounts("12345");
+        assertThat(result, is(Arrays.asList(firstAccount, secondAccount)));
+    }
+    /**
      * Adding an user with the same name but different passport.
      */
     @Test

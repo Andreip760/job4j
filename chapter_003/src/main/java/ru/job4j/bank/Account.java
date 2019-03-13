@@ -42,4 +42,21 @@ public class Account {
     public void supply(double amount) {
         this.value += amount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Account)) {
+            return false;
+        }
+        Account account = (Account) o;
+        return getRequisites().equals(account.getRequisites());
+    }
+
+    @Override
+    public int hashCode() {
+        return requisites.hashCode();
+    }
 }
