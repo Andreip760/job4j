@@ -31,19 +31,15 @@ public class Calculator {
     }
     /**
      * Entry point.
-     * Multiplication table of 2 (from 1 to 9).
-     * using lambdas.
+     * Adding to 2 (from 1 to 9).
+     * using lambdas (calling method).
      * @param args Arguments.
      */
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         calculator.multiple(
                 1, 10, 2,
-                (value, index) -> {
-                    double result = value * index;
-                    System.out.printf("BiFunction job: Multiply %s * %s = %s%n", index, value, result);
-                    return result;
-                },
+                MathUtil::add,
                 result -> System.out.printf("Consumer job: %s%n", result)
         );
     }
