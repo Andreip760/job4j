@@ -24,7 +24,7 @@ public class MathLoopTest {
         assertThat(result, is(expected));
     }
     /**
-     * Logarithm function. Base 2. X range 5 - 8.
+     * Logarithm function. Base 2. X range 2 - 6.
      */
     @Test
     public void whenLogFunctionThenLogResults() {
