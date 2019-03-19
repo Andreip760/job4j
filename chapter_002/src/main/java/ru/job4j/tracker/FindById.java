@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for finding item by its' id
  * @author Andrei Pashchenko.
@@ -12,18 +15,19 @@ public class FindById extends BaseAction {
     /**
      * Finding an item by its' id
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по Id ------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Поиск заявки по Id ------------");
         String id = input.ask("Введите Id заявки");
         Item found = tracker.findById(id);
         if (found != null) {
-            System.out.printf("%s %s %s%s", found.getId(), found.getName(), found.getDesc(), System.lineSeparator());
+            output.accept(String.format("%s %s %s", found.getId(), found.getName(), found.getDesc()));
         } else {
-            System.out.printf("Заявка Id: %s не найдена%s", id, System.lineSeparator());
+            output.accept(String.format("Заявка Id: %s не найдена", id));
         }
-        System.out.println("-------------------------------------------");
+        output.accept("-------------------------------------------");
     }
 }

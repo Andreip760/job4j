@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy-Stub (Do nothing. Just for menu)
  * @author Andrei Pashchenko.
@@ -10,7 +13,7 @@ public class ExitProgram extends BaseAction {
         super(key, info);
     }
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
 
     }
 }

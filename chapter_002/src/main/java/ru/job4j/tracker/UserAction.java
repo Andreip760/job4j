@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * User action interface.
  * @author Andrei Pashchenko.
@@ -13,9 +16,10 @@ public interface UserAction {
     /**
      * Executing the provided strategy
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
-    void execute(Input input, Tracker tracker);
+    void execute(Input input, Consumer<String> output, Tracker tracker);
     /**
      * @return Action information (key and info)
      */

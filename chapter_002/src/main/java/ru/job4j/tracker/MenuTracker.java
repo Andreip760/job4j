@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+
 /**
  * Class for prepare and show the user's menu, and execute selected actions
  * @author Andrei Pashchenko.
@@ -8,12 +10,14 @@ import java.util.ArrayList;
  * @since 22.02.2019
  */
 public class MenuTracker {
-    private Input input;
-    private Tracker tracker;
+    private final Input input;
+    private final Consumer<String> output;
+    private final Tracker tracker;
     private List<UserAction> actions = new ArrayList<>();
 
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Consumer<String> output, Tracker tracker) {
         this.input = input;
+        this.output = output;
         this.tracker = tracker;
     }
     /**
@@ -33,7 +37,7 @@ public class MenuTracker {
      * @param key User's selection (actions' index)
      */
     public void select(int key) {
-        this.actions.get(key).execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.output, this.tracker);
     }
     /**
      * Showing all available actions (menu)
@@ -41,7 +45,7 @@ public class MenuTracker {
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(String.format("%s. %s", action.key(), action.info()));
+                output.accept(String.format("%s. %s", action.key(), action.info()));
             }
         }
     }

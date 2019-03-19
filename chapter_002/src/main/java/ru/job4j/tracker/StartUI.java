@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class serving interaction with user.
  * @author Andrei Pashchenko.
@@ -11,32 +14,38 @@ public class StartUI {
      */
     private final Input input;
     /**
+     * Output interface.
+     */
+    private final Consumer<String> output;
+    /**
      * Applications storage.
      */
     private final Tracker tracker;
     /**
      * Class's fields initializer (constructor)
      * @param input Input interface.
+     * @param output Output interface.
      * @param tracker Tracker.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Consumer<String> output, Tracker tracker) {
         this.input = input;
+        this.output = output;
         this.tracker = tracker;
     }
     /**
      * Main loop.
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.output, this.tracker);
         menu.fillActions();
         final int[] range = new int[menu.getActionsLength()];
         for (int i = 0; i < menu.getActionsLength(); i++) {
             range[i] = i;
         }
         while (true) {
-            System.out.println("Меню.");
+            this.output.accept("Меню.");
             menu.show();
-            int answer = input.ask("select:", range);
+            int answer = this.input.ask("select:", range);
             if (answer == 6) {
                 break;
             }
@@ -48,6 +57,13 @@ public class StartUI {
      * @param args Arguments.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+        new StartUI(
+                new ValidateInput(
+                        new ConsoleInput(System.out::println),
+                        System.out::println
+                ),
+                System.out::println,
+                new Tracker()
+        ).init();
     }
 }

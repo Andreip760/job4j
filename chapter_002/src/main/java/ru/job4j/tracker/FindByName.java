@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for finding items by name
  * @author Andrei Pashchenko.
@@ -12,15 +15,16 @@ public class FindByName extends BaseAction {
     /**
      * Finding items by name
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по имени --------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Поиск заявки по имени --------------");
         String name = input.ask("Введите имя ");
         for (Item item : tracker.findByName(name)) {
-            System.out.printf("%s %s %s%s", item.getId(), item.getName(), item.getDesc(), System.lineSeparator());
+            output.accept(String.format("%s %s %s", item.getId(), item.getName(), item.getDesc()));
         }
-        System.out.println("-------------------------------------------------");
+        output.accept("-------------------------------------------------");
     }
 }

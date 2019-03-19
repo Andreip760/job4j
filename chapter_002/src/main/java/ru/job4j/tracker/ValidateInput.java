@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class extending console interface.
  * Provides validation of user's input.
@@ -8,9 +11,10 @@ package ru.job4j.tracker;
  */
 public class ValidateInput implements Input {
     private final Input input;
-
-    public ValidateInput(final Input input) {
+    private final Consumer<String> output;
+    public ValidateInput(final Input input, Consumer<String> output) {
         this.input = input;
+        this.output = output;
     }
 
     @Override
@@ -33,9 +37,9 @@ public class ValidateInput implements Input {
                 answer = this.input.ask(question, range);
                 valid = true;
             } catch (NumberFormatException nfe) {
-                System.out.println("Enter a number");
+                this.output.accept("Enter a number");
             } catch (MenuOutException uoe) {
-                System.out.println("Enter a number from the menu range");
+                this.output.accept("Enter a number from the menu range");
             }
         }
         return answer;

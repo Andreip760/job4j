@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for deleting existing item from tracker
  * @author Andrei Pashchenko.
@@ -12,17 +15,18 @@ public class DeleteItem extends BaseAction {
      /**
      * Deleting existing item
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Удаление заявки --------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Удаление заявки --------------");
         String id = input.ask("Введите Id заявки ");
         if (tracker.delete(id)) {
-            System.out.printf("Заявка Id: %s удалена%s", id, System.lineSeparator());
+            output.accept(String.format("Заявка Id: %s удалена", id));
         } else {
-            System.out.printf("Заявка Id: %s не найдена%s", id, System.lineSeparator());
+            output.accept(String.format("Заявка Id: %s не найдена", id));
         }
-        System.out.println("-------------------------------------------");
+        output.accept("-------------------------------------------");
     }
 }

@@ -3,10 +3,10 @@ package ru.job4j.tracker;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.After;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 /**
@@ -16,27 +16,19 @@ import static org.hamcrest.core.Is.is;
  * @since 18.02.2019
  */
 public class StartUITest {
-    private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final Consumer<String> output = new PrintStream(out)::println;
     private Tracker tracker;
     private Item item;
+
     /**
-     * Redirecting output
      * Creating new tracker
      * Adding the first item to the tracker
      */
     @Before
     public void initialize() {
-        System.setOut(new PrintStream(out));
         this.tracker = new Tracker();
         this.item = this.tracker.add(new Item("name1", "desc1"));
-    }
-    /**
-     * Redirecting output back
-     */
-    @After
-    public void backOutput() {
-        System.setOut(this.stdout);
     }
     /**
      * Adding new item
@@ -44,7 +36,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(this.tracker.findAll().get(1).getName(), is("test name"));
     }
     /**
@@ -53,7 +45,7 @@ public class StartUITest {
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Input input = new StubInput(new String[]{"2", this.item.getId(), "test replace", "заменили заявку", "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(this.tracker.findById(this.item.getId()).getName(), is("test replace"));
     }
     /**
@@ -63,7 +55,7 @@ public class StartUITest {
     public void whenDeleteThenTrackerHasItemsWithoutDeleted() {
         Item second = this.tracker.add(new Item("second", "desc"));
         Input input = new StubInput(new String[] {"3", this.item.getId(), "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(this.tracker.findAll().get(0), is(second));
     }
     /**
@@ -72,7 +64,7 @@ public class StartUITest {
     @Test
     public void whenStartUIThenPrintMenu() {
         Input input = new StubInput(new String[] {"6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(
                 this.out.toString(),
                 is(
@@ -94,7 +86,7 @@ public class StartUITest {
     @Test
     public void whenShowAllThenPrintAllItems() {
         Input input = new StubInput(new String[] {"1", "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(
                 this.cutConsole(this.out.toString()),
                 is(
@@ -112,7 +104,7 @@ public class StartUITest {
     @Test
     public void whenFindByIdThenPrintFoundItem() {
         Input input = new StubInput(new String[] {"4", this.item.getId(), "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(
                 this.cutConsole(this.out.toString()),
                 is(
@@ -130,7 +122,7 @@ public class StartUITest {
     @Test
     public void whenFindByNameThenPrintFoundItem() {
         Input input = new StubInput(new String[] {"5", this.item.getName(), "6"});
-        new StartUI(input, this.tracker).init();
+        new StartUI(input, this.output, this.tracker).init();
         assertThat(
                 this.cutConsole(this.out.toString()),
                 is(

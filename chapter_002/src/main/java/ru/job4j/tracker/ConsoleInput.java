@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 import java.util.Scanner;
+import java.util.function.Consumer;
+
 /**
  * Class providing console interface.
  * @author Andrei Pashchenko.
@@ -7,7 +9,12 @@ import java.util.Scanner;
  * @since 18.02.2019
  */
 public class ConsoleInput implements Input {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private final Consumer<String> output;
+
+    public ConsoleInput(Consumer<String> output) {
+        this.output = output;
+    }
 
     /**
      * Asks user and receive answer
@@ -17,7 +24,7 @@ public class ConsoleInput implements Input {
      */
     @Override
     public String ask(String question) {
-        System.out.println(question);
+        this.output.accept(question);
         return scanner.nextLine();
     }
     /**

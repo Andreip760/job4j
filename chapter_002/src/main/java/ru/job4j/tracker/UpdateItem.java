@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for updating existing item in the tracker
  * @author Andrei Pashchenko.
@@ -12,19 +15,20 @@ public class UpdateItem extends BaseAction {
     /**
      * Replacing an existing item with another one
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Редактирование заявки --------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Редактирование заявки --------------");
         String id = input.ask("Введите Id заявки");
         String name = input.ask("Введите новое имя");
         String desc = input.ask("Введите новое описание");
         if (tracker.replace(id, new Item(name, desc))) {
-            System.out.printf("Заявка Id: %s заменена%s", id, System.lineSeparator());
+            output.accept(String.format("Заявка Id: %s заменена", id));
         } else {
-            System.out.printf("Заявка Id: %s не найдена%s", id, System.lineSeparator());
+            output.accept(String.format("Заявка Id: %s не найдена", id));
         }
-        System.out.println("-------------------------------------------------");
+        output.accept("-------------------------------------------------");
     }
 }

@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for adding a new item to the tracker
  * @author Andrei Pashchenko.
@@ -12,15 +15,16 @@ public class AddItem extends BaseAction {
     /**
      * Adding new item to the tracker
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Добавление новой заявки --------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Добавление новой заявки --------------");
         String name = input.ask("Введите имя заявки :");
         String desc = input.ask("Введите описание заявки :");
         Item item = new Item(name, desc);
         tracker.add(item);
-        System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+        output.accept("------------ Новая заявка с getId : " + item.getId() + "-----------");
     }
 }

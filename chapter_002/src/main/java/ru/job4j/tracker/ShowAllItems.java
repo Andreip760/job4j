@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Strategy for showing all items in the tracker
  * @author Andrei Pashchenko.
@@ -12,14 +15,15 @@ public class ShowAllItems extends BaseAction {
     /**
      * Showing all items in the tracker
      * @param input Input interface
+     * @param output Output interface
      * @param tracker Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Все заявки --------------");
+    public void execute(Input input, Consumer<String> output, Tracker tracker) {
+        output.accept("------------ Все заявки --------------");
         for (Item item : tracker.findAll()) {
-            System.out.printf("%s %s %s%s", item.getId(), item.getName(), item.getDesc(), System.lineSeparator());
+            output.accept(String.format("%s %s %s", item.getId(), item.getName(), item.getDesc()));
         }
-        System.out.println("--------------------------------------");
+        output.accept("--------------------------------------");
     }
 }
