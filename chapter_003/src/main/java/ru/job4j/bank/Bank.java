@@ -1,8 +1,10 @@
 package ru.job4j.bank;
 
 import java.util.*;
+
 /**
  * Class represents the bank transactions system.
+ * using stream API.
  * @author Andrei Pashchenko.
  * @version 1
  * @since 13.03.2019
@@ -51,12 +53,8 @@ public class Bank {
      * @return Accounts.
      */
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = new ArrayList<>();
         User user = findUser(passport);
-        if (user != null) {
-            result = this.userAccounts.get(user);
-        }
-        return result;
+        return user != null ? this.userAccounts.get(user) : new ArrayList<>();
     }
     /**
      * Transferring money between accounts.
@@ -94,14 +92,9 @@ public class Bank {
      * @return Found user or null.
      */
     private User findUser(final String passport) {
-        User result = null;
-        for (User user : this.userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-                break;
-            }
-        }
-        return result;
+        return this.userAccounts.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst().orElse(null);
     }
     /**
      * Finding an user's account by its requisites.
@@ -110,13 +103,8 @@ public class Bank {
      * @return Found account or null.
      */
     private Account findAccount(final User user, final String requisites) {
-        Account result = null;
-        for (Account account : this.userAccounts.get(user)) {
-            if (account.getRequisites().equals(requisites)) {
-                result = account;
-                break;
-            }
-        }
-        return result;
+        return this.userAccounts.get(user).stream()
+                .filter(account -> account.getRequisites().equals(requisites))
+                .findFirst().orElse(null);
     }
 }
