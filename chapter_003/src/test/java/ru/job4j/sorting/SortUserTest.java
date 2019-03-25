@@ -1,9 +1,10 @@
 package ru.job4j.sorting;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.Before;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,12 @@ import java.util.Set;
 public class SortUserTest {
     private SortUser sortUser = new SortUser();
     private List<User> users;
+    private final User first = new User("Маша", 20);
+    private final User second = new User("Андрей", 37);
+    private final User third = new User("Вася", 18);
+    private final User fourth = new User("Настя", 18);
+    private final User fifth = new User("Оля", 38);
+
     @Before
     public void resetUsers() {
         this.users = new ArrayList<>();
@@ -26,47 +33,41 @@ public class SortUserTest {
      */
     @Test
     public void whenUnsortedInThenSortedTreeSet() {
-        this.users.add(new User("Маша", 20));
-        this.users.add(new User("Андрей", 37));
-        this.users.add(new User("Вася", 18));
+        this.users = List.of(this.first, this.second, this.third);
         Set<User> result = this.sortUser.sort(this.users);
-        assertThat(result, contains(this.users.get(2), this.users.get(0), this.users.get(1)));
+        Set<User> expect = Set.of(this.third, this.first, this.second);
+        assertThat(result, is(expect));
     }
     /**
      * Sorted users
      */
     @Test
     public void whenSortedInThenSortedTreeSet() {
-        this.users.add(new User("Вася", 18));
-        this.users.add(new User("Маша", 20));
-        this.users.add(new User("Андрей", 37));
+        this.users = List.of(this.third, this.first, this.second);
         Set<User> result = this.sortUser.sort(this.users);
-        assertThat(result, contains(this.users.get(0), this.users.get(1), this.users.get(2)));
+        Set<User> expect = Set.of(this.first, this.second, this.third);
+        assertThat(result, is(expect));
     }
     /**
      * Sort bt all fields.
      */
     @Test
     public void whenUnsortedByAllThenSortedList() {
-        User first = new User("Маша", 20);
-        User second = new User("Маша", 18);
-        User third = new User("Андрей", 19);
-        User fourth = new User("Андрей", 38);
-        this.users.addAll(Arrays.asList(first, second, third, fourth));
+        User addFirst = new User("Маша", 18);
+        User addSecond = new User("Андрей", 19);
+        this.users.addAll(Arrays.asList(this.first, addFirst, this.second, addSecond));
         List<User> result = this.sortUser.sortByAllFields(this.users);
-        assertThat(result, contains(third, fourth, second, first));
+        List<User> expect = List.of(addSecond, this.second, addFirst, this.first);
+        assertThat(result, is(expect));
     }
     /**
      * Sort bt name length.
      */
     @Test
     public void whenUnsortedByNameLengthThenSortedList() {
-        User first = new User("Маша", 20);
-        User second = new User("Настя", 18);
-        User third = new User("Андрей", 19);
-        User fourth = new User("Оля", 38);
-        this.users.addAll(Arrays.asList(first, second, third, fourth));
+        this.users.addAll(Arrays.asList(this.first, this.fourth, this.second, this.fifth));
         List<User> result = this.sortUser.sortNameLength(this.users);
-        assertThat(result, contains(fourth, first, second, third));
+        List<User> expect = List.of(this.fifth, this.first, this.fourth, this.second);
+        assertThat(result, is(expect));
     }
 }

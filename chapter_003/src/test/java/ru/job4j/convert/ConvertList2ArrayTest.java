@@ -1,12 +1,10 @@
 package ru.job4j.convert;
 
-import org.junit.Before;
-import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ConvertList2ArrayTest {
@@ -21,10 +19,7 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when7ElementsThen9() {
-        int[][] result = this.list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7),
-                3
-        );
+        int[][] result = this.list.toArray(List.of(1, 2, 3, 4, 5, 6, 7), 3);
         int[][] expect = {
                 {1, 2, 3},
                 {4, 5, 6},
@@ -37,10 +32,7 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when8ElementsThen9() {
-        int[][] result = this.list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8),
-                3
-        );
+        int[][] result = this.list.toArray(List.of(1, 2, 3, 4, 5, 6, 7, 8), 3);
         int[][] expect = {
                 {1, 2, 3},
                 {4, 5, 6},
@@ -53,10 +45,7 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when9Elements3rowThen9() {
-        int[][] result = this.list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9),
-                3
-        );
+        int[][] result = this.list.toArray(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9), 3);
         int[][] expect = {
                 {1, 2, 3},
                 {4, 5, 6},
@@ -69,10 +58,7 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when7Elements2rowThenTall8() {
-        int[][] result = this.list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7),
-                4
-        );
+        int[][] result = this.list.toArray(List.of(1, 2, 3, 4, 5, 6, 7), 4);
         int[][] expect = {
                 {1, 2},
                 {3, 4},
@@ -86,10 +72,7 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when7Elements2rowThenLong8() {
-        int[][] result = this.list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7),
-                2
-        );
+        int[][] result = this.list.toArray(List.of(1, 2, 3, 4, 5, 6, 7), 2);
         int[][] expect = {
                 {1, 2, 3, 4},
                 {5, 6, 7, 0}
@@ -102,20 +85,22 @@ public class ConvertList2ArrayTest {
      */
     @Test
     public void when1And3And2ArraysListThenList6() {
-        List<int[]> input = new ArrayList<>();
-        input.add(new int[] {1});
-        input.add(new int[] {2, 3, 4});
-        input.add(new int[] {5, 6});
-        assertThat(this.list.convert(input), is(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        List<int[]> input = List.of(
+                new int[] {1},
+                new int[] {2, 3, 4},
+                new int[] {5, 6}
+                );
+        assertThat(this.list.convert(input), is(List.of(1, 2, 3, 4, 5, 6)));
     }
     /**
      * One of the input arrays is empty.
      */
     @Test
     public void whenOneOfArraysEmptyListThenListWithoutEmpty() {
-        List<int[]> input = new ArrayList<>();
-        input.add(new int[] {});
-        input.add(new int[] {1, 2});
-        assertThat(this.list.convert(input), is(Arrays.asList(1, 2)));
+        List<int[]> input = List.of(
+                new int[] {},
+                new int[] {1, 2}
+                );
+        assertThat(this.list.convert(input), is(List.of(1, 2)));
     }
 }

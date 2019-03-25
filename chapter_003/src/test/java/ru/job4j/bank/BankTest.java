@@ -1,11 +1,10 @@
 package ru.job4j.bank;
 
-import org.junit.Test;
-import org.junit.Before;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import java.util.Arrays;
-import java.util.Collections;
+import org.junit.Test;
+import org.junit.Before;
+
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class BankTest {
     @Test
     public void whenAddUserAndTwoAccountsThenSeeUserAccounts() {
         List<Account> result = this.bank.getUserAccounts("12345");
-        assertThat(result, is(Arrays.asList(firstAccount, secondAccount)));
+        assertThat(result, is(List.of(this.firstAccount, this.secondAccount)));
     }
     /**
      * Trying to add an account with the same requisites as the first.
@@ -43,7 +42,7 @@ public class BankTest {
     public void whenAddAccountsWithSameReqsThenSeeStartUserAccounts() {
         this.bank.addAccountToUser("12345", new Account(1D, "Account1"));
         List<Account> result = this.bank.getUserAccounts("12345");
-        assertThat(result, is(Arrays.asList(firstAccount, secondAccount)));
+        assertThat(result, is(List.of(this.firstAccount, this.secondAccount)));
     }
     /**
      * Adding an user with the same name but different passport.
@@ -54,9 +53,9 @@ public class BankTest {
         Account account = new Account(10D, "AddUserAccount");
         this.bank.addUser(secondUser);
         this.bank.addAccountToUser(secondUser.getPassport(), account);
-        List<Account> firstResult = this.bank.getUserAccounts(firstUser.getPassport());
+        List<Account> firstResult = this.bank.getUserAccounts(this.firstUser.getPassport());
         List<Account> secondResult = this.bank.getUserAccounts(secondUser.getPassport());
-        assertThat(firstResult.get(0).getRequisites(), is(firstAccount.getRequisites()));
+        assertThat(firstResult.get(0).getRequisites(), is(this.firstAccount.getRequisites()));
         assertThat(secondResult.get(0).getRequisites(), is(account.getRequisites()));
     }
     /**
@@ -66,16 +65,16 @@ public class BankTest {
     public void whenAddDeleteFirstThenEmptyAccounts() {
         this.bank.deleteUser(this.firstUser);
         List<Account> result = this.bank.getUserAccounts("12345");
-        assertThat(result, is(Collections.EMPTY_LIST));
+        assertThat(result, is(List.of()));
     }
     /**
      * Deleting the user's account.
      */
     @Test
     public void whenDeleteAccountFromUserThenWithoutDeleted() {
-        this.bank.deleteAccountFromUser("12345", firstAccount);
+        this.bank.deleteAccountFromUser("12345", this.firstAccount);
         List<Account> result = this.bank.getUserAccounts("12345");
-        assertThat(result, is(Arrays.asList(secondAccount)));
+        assertThat(result, is(List.of(this.secondAccount)));
     }
     /**
      * Transferring between user's own accounts and amount is correct.
