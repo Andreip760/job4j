@@ -30,7 +30,7 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByName() {
-        List<Person> persons = this.phones.find("Vasya");
+        var persons = this.phones.find("Vasya");
         assertThat(persons.iterator().next().getSurname(), is("Pupkin"));
     }
     /**
@@ -38,7 +38,7 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindBySurName() {
-        List<Person> persons = this.phones.find("Pupkin");
+        var persons = this.phones.find("Pupkin");
         assertThat(persons.iterator().next().getName(), is("Vasya"));
     }
     /**
@@ -46,7 +46,7 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByAddress() {
-        List<Person> persons = this.phones.find("Bryansk");
+        var persons = this.phones.find("Bryansk");
         assertThat(persons.iterator().next().getName(), is("Vasya"));
     }
     /**
@@ -54,7 +54,7 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByPartialQuery() {
-        List<Person> persons = this.phones.find("Brya");
+        var persons = this.phones.find("Brya");
         assertThat(persons.iterator().next().getPhone(), is("534872"));
     }
     /**
@@ -63,9 +63,9 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByPartialQueryThenTwoRecords() {
-        Person second = new Person("Vasilisa", "Ivanova", "123456", "Msk");
+        var second = new Person("Vasilisa", "Ivanova", "123456", "Msk");
         this.phones.add(second);
-        List<Person> persons = this.phones.find("Vas");
+        var persons = this.phones.find("Vas");
         assertThat(persons, containsInAnyOrder(this.first, second));
     }
 }

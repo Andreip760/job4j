@@ -13,8 +13,8 @@ public class PriorityQueue {
      * @param task Task.
      */
     public void put(Task task) {
-        boolean inserted = false;
-        for (int i = 0; i < tasks.size(); i++) {
+        var inserted = false;
+        for (var i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getPriority() > task.getPriority()) {
                 tasks.add(i, task);
                 inserted = true;
